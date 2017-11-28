@@ -1,5 +1,7 @@
 package dao;
 
+import java.sql.SQLException;
+
 /** DAO Coupon Layer */
 
 import java.util.Collection;
@@ -11,7 +13,7 @@ import javabeans.Coupon;
 public interface CouponDAO {
 
 
-	public void createCoupon(Coupon coupon, long companyId) throws DAOExeption;
+	public void createCoupon(Coupon coupon) throws DAOExeption;
 
 	public void removeCoupon(Coupon coupon) throws DAOExeption;
 
@@ -28,6 +30,8 @@ public interface CouponDAO {
 	void removeCompanyCoupon(long couponId) throws DAOExeption;
 
 	void removeCustomerCoupon(long couponId) throws DAOExeption;
+
+	void joinCouponCompany(Coupon coupon, Long companyId) throws SQLException;
 
 
 

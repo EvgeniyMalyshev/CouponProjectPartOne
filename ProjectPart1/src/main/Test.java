@@ -50,7 +50,7 @@ public class Test {
 		long idCustomer = ((java.util.List<Customer>)AdminFacade.getAllCustomers()).get(0).getId();
 		
 
-		
+		CompanyFacade.createCoupon(good_coupon);
 
 		CustomerFacade.purchaseCoupon(idCompany, good_coupon);
 

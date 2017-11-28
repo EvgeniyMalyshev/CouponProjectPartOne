@@ -12,16 +12,25 @@ import javabeans.Company;
 import javabeans.Coupon;
 
 public class CompanyFacade implements CouponClientFacade {
+	
+	
+	//private Company company;
 
 	private static CompanyDBDAO companyDBDAO = new CompanyDBDAO();
 	private static CouponDBDAO couponDBDAO = new CouponDBDAO();
-
+	
 	public CompanyFacade() {}
+//	public CompanyFacade (Long compId) throws DBDAOExeption {
+//		super();
+//		this.company = companyDBDAO.getCompany(company.getId());
+//	}
+	
 
 	/**create of coupon*/
 
-	public static void createCoupon(Coupon coupon,long companyID) throws Exception {
-		couponDBDAO.createCoupon(coupon, companyID);
+	public static void createCoupon(Coupon coupon) throws Exception {
+		couponDBDAO.createCoupon(coupon);
+		couponDBDAO.joinCouponCompany(coupon, );
 	}
 
 	/** remove of coupon*/
@@ -110,7 +119,7 @@ public class CompanyFacade implements CouponClientFacade {
 	public static Collection<Coupon> getAllPurchasedCouponsByTime(long companyId,Date date) throws FacadeExeptions {
 		Collection<Coupon> purchasedOfEndTime = new ArrayList<>();
 		try {
-			purchasedOfEndTime = couponDBDAO.getCompanyCoupons( companyId);
+			purchasedOfEndTime = couponDBDAO.getCompanyCoupons(companyId);
 		} catch (DBDAOExeption e) {
 			throw new FacadeExeptions("Failed to retrieve Coupons. Please contact our support team.",e);
 		}

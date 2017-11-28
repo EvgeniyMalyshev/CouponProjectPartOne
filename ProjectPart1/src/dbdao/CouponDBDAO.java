@@ -23,8 +23,7 @@ public class CouponDBDAO implements CouponDAO {
 
 	/** Create coupon and add editions to SQL */
 
-	@Override
-	public void createCoupon(Coupon coupon, long companyId) throws DBDAOExeption {
+	public void createCoupon(Coupon coupon) throws DBDAOExeption {
 		try {
 			try {
 				connection = ConnectionPool.getInstanse().getConnection();
@@ -53,24 +52,25 @@ public class CouponDBDAO implements CouponDAO {
 			} else {
 				throw new SQLException("Create Coupon FAILED, No ID Was Obtained.");
 			}
-			
-			String createSQL2 = "INSERT INTO coupon_company (coupon_ID,company_ID) VALUES (?,?)";
-			PreparedStatement pStatement2 = connection.prepareStatement (createSQL2, Statement.RETURN_GENERATED_KEYS);
-			pStatement2.setLong(1, coupon.getId());
-			pStatement2.setLong(2, companyId);
-			pStatement2.executeUpdate();
-
-			System.out.println("Coupon " + coupon.getTitle() + " was created!");
 		} catch (SQLException e) {
 			throw new DBDAOExeption("Creating a new Coupon has failed!",e);
-		} finally {
-			try {
-				ConnectionPool.getInstanse().returnConnection(connection);
-			} catch (CouponSystemExeption e) {
-				throw new DBDAOExeption("Problems with return connection detected!",e);
 			}
 		}
-	}
+		
+	
+		@Override
+		public void joinCouponCompany (Coupon coupon, Long companyId) throws SQLException  {
+			String createSQL2 = "INSERT INTO coupon_company (coupon_ID,company_ID) VALUES (?,?)";
+			PreparedStatement pStatement2;
+			
+				pStatement2 = connection.prepareStatement (createSQL2, Statement.RETURN_GENERATED_KEYS);
+				pStatement2.setLong(1, coupon.getId());
+				pStatement2.setLong(2, companyId);
+				pStatement2.executeUpdate();
+				System.out.println("Coupon " + coupon.getTitle() + " was created!");
+			
+		 }
+	
 
 	/** Remove coupon and add editions to SQL */
 
