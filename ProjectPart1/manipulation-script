@@ -1,0 +1,42 @@
+//delete tables
+DROP TABLE coupon_db.company;
+DROP TABLE coupon_db.coupon;
+DROP TABLE coupon_db.customer;
+DROP TABLE coupon_db.coupon_customer;
+DROP TABLE coupon_db.coupon_company;
+
+
+//clean tables
+TRUNCATE TABLE coupon_db.coupon_customer;
+TRUNCATE TABLE coupon_db.coupon_company;
+TRUNCATE TABLE coupon_db.coupon;
+TRUNCATE TABLE coupon_db.company;
+TRUNCATE TABLE coupon_db.customer;
+
+
+//build tables
+create table coupon_db.coupon
+(ID BIGINT(64) primary key generated always as identity, 
+TITLE VARCHAR(45),
+START_DATE date,
+END_DATE date, 
+AMOUNT INTEGER,
+COUPON_TYPE VARCHAR(45),
+MESSAGE VARCHAR(45),
+PRICE INTEGER,
+IMAGE VARCHAR(45));
+						
+create table coupon_db.customer
+(ID BIGINT(64) primary key generated always as identity,
+CUST_NAME VARCHAR(45),
+PASSWORD VARCHAR(45));
+
+create table coupon_db.company
+(ID BIGINT(64) primary key generated always as identity,
+COMP_NAME VARCHAR(45),
+PASSWORD VARCHAR(45),
+EMAIL VARCHAR(45));
+						
+create table coupon_db.coupon_customer (coupon_ID BIGINT(64), customer_ID BIGINT(64), primary key(customer_ID, coupon_ID));
+
+create table coupon_db.coupon_company (company_ID BIGINT(64), coupon_ID BIGINT(64),  primary key(company_ID, coupon_ID));
